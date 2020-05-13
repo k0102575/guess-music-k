@@ -1,2 +1,2 @@
 # guess-music-k
-guess music
+Guess Music
