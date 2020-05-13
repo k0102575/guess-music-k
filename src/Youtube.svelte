@@ -1,0 +1,82 @@
+<script context="module">
+  let YouTubeIframeAPIReady = false;
+</script>
+
+<script>
+  let player;
+  import { createEventDispatcher, onMount } from "svelte";
+  const dispatch = createEventDispatcher();
+  let divId = "player_" + parseInt(Math.random() * 100000).toString();
+  export let videoId;
+  export let height = "0";
+  export let width = "0";
+
+  onMount(() => {
+    let ytTagUrl = "https://www.youtube.com/iframe_api";
+    if (!isMyScriptLoaded(ytTagUrl)) {
+      var tag = document.createElement("script");
+      tag.src = ytTagUrl;
+      var firstScriptTag = document.getElementsByTagName("script")[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }
+
+    window.onYouTubeIframeAPIReady = function() {
+      window.dispatchEvent(new Event("YouTubeIframeAPIReady"));
+    };
+
+    window.addEventListener("YouTubeIframeAPIReady", function() {
+      if (YouTubeIframeAPIReady == false) {
+        YouTubeIframeAPIReady = true; // now the Player can be created
+        createPlayer();
+      }
+    });
+    function createPlayer() {
+      player = new YT.Player(divId, {
+        height,
+        width,
+        videoId: videoId,
+        events: {
+          //'onReady': onPlayerReady,
+          onStateChange: onPlayerStateChange
+        }
+      });
+    }
+    if (YouTubeIframeAPIReady) {
+      createPlayer(); // if the YT Script is ready, we can create our player
+    }
+  });
+
+  function isMyScriptLoaded(url = "") {
+    var scripts = document.getElementsByTagName("script");
+    for (var i = scripts.length; i--; ) {
+      if (scripts[i].src == url) return true;
+    }
+    return false;
+  }
+
+  function onPlayerStateChange({ data }) {
+    if (data === 1) {
+      // TODO 난이도 시간초 처리
+      setTimeout(stopVideo, 3000);
+    }
+    dispatch("StateChange", data);
+  }
+  export function playVideo() {
+    player.playVideo();
+    player.seekTo(0, true);
+
+
+  }
+  export function stopVideo() {
+    // TODO stop clear 프로미스 처리
+    player.stopVideo();
+    clearVideo();
+  }
+  export function clearVideo() {
+    player.clearVideo();
+  }
+</script>
+
+<div class="yt-component">
+  <div id={divId} />
+</div>

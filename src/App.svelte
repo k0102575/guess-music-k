@@ -1,10 +1,8 @@
 <script>
-	export let name = "world";
+	import Youtube from "./Youtube.svelte";
+	let player1;
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-</main>
+<button on:click={() => {player1.playVideo()}}>재생</button>
 
-<style>
-</style>
+<Youtube videoId="-sVo6NWwK_o" onStageChange={(event) => {event}} bind:this={player1}/>
