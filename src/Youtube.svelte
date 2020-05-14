@@ -49,7 +49,6 @@
   }
 
   export function createPlayer(videoId) {
-    console.log(videoId);
     player = new YT.Player(divId, {
       height: "500",
       width: "500",

@@ -4,10 +4,7 @@
 	let player;
 	let videoIds = ["-sVo6NWwK_o", "hRJKGVJpHpA", "7gr7BK7B51g"];
 	let idx;
-	storesIndex.subscribe(i => {
-		idx = i;
-	});
-	
+	storesIndex.subscribe(i => idx = i);
 </script>
 
 <button on:click={() => {player.createPlayer(videoIds[idx])}}>생성</button>
