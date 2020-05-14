@@ -1,10 +1,11 @@
 <script >
-  let player;
-  let divId = "player_" + parseInt(Math.random() * 100000).toString();
   import {
     createEventDispatcher,
     onMount
   } from "svelte";
+	import {storesIndex} from './stores.js';
+  let player;
+  let divId = "player_" + parseInt(Math.random() * 100000).toString();
   const dispatch = createEventDispatcher();
 
   onMount(() => {
@@ -48,6 +49,7 @@
   }
 
   export function createPlayer(videoId) {
+    console.log(videoId);
     player = new YT.Player(divId, {
       height: "500",
       width: "500",
@@ -56,6 +58,7 @@
         onStateChange: onPlayerStateChange
       }
     });
+    storesIndex.update(n => n + 1)
   }
 
   export function destroyPlayer() {
