@@ -1,3 +1,3 @@
 import { writable } from 'svelte/store';
 
-export const storesIndex = writable(0);
+export const store = writable(0);
