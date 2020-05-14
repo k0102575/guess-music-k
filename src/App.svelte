@@ -1,8 +1,13 @@
 <script>
 	import Youtube from "./Youtube.svelte";
-	let player1;
+	let player;
+
+	
+
 </script>
 
-<button on:click={() => {player1.playVideo()}}>재생</button>
+<button on:click={() => {player.createPlayer("-sVo6NWwK_o")}}>생성</button>
+<button on:click={() => {player.playVideo()}}>재생</button>
+<button on:click={() => {player.destroyPlayer()}}>삭제</button>
 
-<Youtube videoId="-sVo6NWwK_o" onStageChange={(event) => {event}} bind:this={player1}/>
+<Youtube bind:this={player}/>
