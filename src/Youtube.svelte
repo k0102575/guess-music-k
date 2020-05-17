@@ -1,9 +1,6 @@
-<script >
-  import {
-    createEventDispatcher,
-    onMount
-  } from "svelte";
-	import {store} from './stores.js';
+<script>
+  import { createEventDispatcher, onMount } from "svelte";
+  import { store } from "./stores.js";
   let player;
   let divId = "player_" + parseInt(Math.random() * 100000).toString();
   const dispatch = createEventDispatcher();
@@ -17,20 +14,20 @@
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     }
 
-    window.onYouTubeIframeAPIReady = function () {
+    window.onYouTubeIframeAPIReady = function() {
       window.dispatchEvent(new Event("YouTubeIframeAPIReady"));
     };
   });
 
   function isMyScriptLoaded(url = "") {
     var scripts = document.getElementsByTagName("script");
-    for (var i = scripts.length; i--;) {
+    for (var i = scripts.length; i--; ) {
       if (scripts[i].src == url) return true;
     }
     return false;
   }
 
-  function onPlayerStateChange({data}) {
+  function onPlayerStateChange({ data }) {
     if (data === 1) {
       // TODO 난이도 시간초 처리
       setTimeout(stopVideo, 1000);
@@ -57,15 +54,14 @@
         onStateChange: onPlayerStateChange
       }
     });
-    store.update(n => n + 1)
+    store.update(n => n + 1);
   }
 
   export function destroyPlayer() {
     player.destroy();
   }
-
 </script>
 
 <div class="yt-component">
-  <div id={divId}/> 
+  <div id={divId} />
 </div>
