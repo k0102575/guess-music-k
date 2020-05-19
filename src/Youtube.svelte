@@ -13,7 +13,6 @@
       var firstScriptTag = document.getElementsByTagName("script")[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     }
-
     window.onYouTubeIframeAPIReady = function() {
       window.dispatchEvent(new Event("YouTubeIframeAPIReady"));
     };
@@ -45,7 +44,11 @@
     player.seekTo(0, true);
   }
 
-  export function createPlayer(videoId) {
+  export function createPlayer() {
+    let { music, index } = $store;
+    let videoId = music[index].videoId;
+    let answer = music[index].answer;
+
     player = new YT.Player(divId, {
       height: "500",
       width: "500",
@@ -54,7 +57,11 @@
         onStateChange: onPlayerStateChange
       }
     });
-    store.update(n => n + 1);
+
+    store.update(value => {
+      value.answer = answer;
+      return value;
+    });
   }
 
   export function destroyPlayer() {
