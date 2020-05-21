@@ -1,9 +1,7 @@
 <script>
   import { onMount, onDestroy, beforeUpdate, afterUpdate, tick } from "svelte";
-
-  import Youtube from "./Youtube.svelte";
-  import Loading from "./Loading.svelte";
-  import { store } from "./stores.js";
+  import { store } from "./module/stores.js";
+  import { IntroPage, Youtube, Loading, Header } from "./components/index.js";
 
   let player;
   let idx;
@@ -26,30 +24,21 @@
   });
 </script>
 
-<button
-  on:click={() => {
-    player.createPlayer();
-  }}>
-  생성
-</button>
-<button
-  on:click={() => {
-    player.playVideo();
-  }}>
-  재생
-</button>
-<button
-  on:click={() => {
-    player.destroyPlayer();
-  }}>
-  삭제
-</button>
+<style>
+  .container {
+    height: 100%;
+  }
+</style>
 
-<div>{$store.index}</div>
-<div>{$store.answer}</div>
+<div class="container">
 
-{#if isLoading}
-  <Loading />
-{:else}
-  <Youtube bind:this={player} />
-{/if}
+  <Header />
+  <IntroPage />
+
+  {#if isLoading}
+    <Loading />
+  {:else}
+    <Youtube bind:this={player} />
+  {/if}
+
+</div>

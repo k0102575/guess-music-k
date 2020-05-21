@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher, onMount } from "svelte";
-  import { store } from "./stores.js";
+  import { store } from "../module/stores.js";
   let player;
   let divId = "player_" + parseInt(Math.random() * 100000).toString();
   const dispatch = createEventDispatcher();
