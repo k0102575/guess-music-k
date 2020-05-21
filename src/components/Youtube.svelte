@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher, onMount } from "svelte";
-  import { store } from "../module/stores.js";
+  import { index, music, answer } from "../module/stores.js";
   let player;
   let divId = "player_" + parseInt(Math.random() * 100000).toString();
   const dispatch = createEventDispatcher();
@@ -15,6 +15,7 @@
     }
     window.onYouTubeIframeAPIReady = function() {
       window.dispatchEvent(new Event("YouTubeIframeAPIReady"));
+      createPlayer();
     };
   });
 
@@ -45,9 +46,8 @@
   }
 
   export function createPlayer() {
-    let { music, index } = $store;
-    let videoId = music[index].videoId;
-    let answer = music[index].answer;
+    let videoId = $music[$index].videoId;
+    let answerValue = $music[$index].answer;
 
     player = new YT.Player(divId, {
       height: "500",
@@ -58,10 +58,7 @@
       }
     });
 
-    store.update(value => {
-      value.answer = answer;
-      return value;
-    });
+    answer.update(value => answer);
   }
 
   export function destroyPlayer() {

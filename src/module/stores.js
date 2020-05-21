@@ -1,3 +1,5 @@
 import { writable } from "svelte/store";
 
-export const store = writable({ index: 0, music: [], answer: "" });
+export const index = writable(0);
+export const music = writable([]);
+export const answer = writable("");
