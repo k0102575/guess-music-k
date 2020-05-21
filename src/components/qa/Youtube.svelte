@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher, onMount } from "svelte";
-  import { indexStore, musicStore, answerStore } from "../module/stores.js";
+  import { indexStore, musicStore, answerStore } from "../../module/stores.js";
   let player;
   let divId = "player_" + parseInt(Math.random() * 100000).toString();
   const dispatch = createEventDispatcher();
@@ -50,8 +50,8 @@
     let answer = $musicStore[$indexStore].answer;
 
     player = new YT.Player(divId, {
-      height: "100",
-      width: "100",
+      height: "0",
+      width: "0",
       videoId: videoId,
       events: {
         onStateChange: onPlayerStateChange
@@ -65,6 +65,13 @@
     player.destroy();
   }
 </script>
+
+<style>
+  .yt-component {
+    height: 0px;
+    width: 0px;
+  }
+</style>
 
 <div class="yt-component">
   <div id={divId} />

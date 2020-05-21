@@ -1,9 +1,8 @@
 <script>
   import { onMount, onDestroy, beforeUpdate, afterUpdate, tick } from "svelte";
   import { indexStore, musicStore, isStartStore } from "./module/stores.js";
-  import { IntroPage, Youtube, Loading, Header } from "./components/index.js";
+  import { IntroPage, QaPage, Loading, Header } from "./components/index.js";
 
-  let player;
   let isLoading = true;
   let isStart = $isStartStore;
   let url = "/question.json";
@@ -44,7 +43,7 @@
     {#if isLoading}
       <Loading />
     {:else}
-      <Youtube bind:this={player} />
+      <QaPage />
     {/if}
   {:else}
     <IntroPage />
