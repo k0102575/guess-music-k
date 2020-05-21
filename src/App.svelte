@@ -1,7 +1,7 @@
 <script>
   import { onMount, onDestroy, beforeUpdate, afterUpdate, tick } from "svelte";
-  import { indexStore, musicStore, isStartStore } from "./module/stores.js";
-  import { IntroPage, QaPage, Loading, Header } from "./components/index.js";
+  import { indexStore, musicStore, isStartStore } from "@/module/stores.js";
+  import { IntroPage, QaPage, Loading, Header } from "@/components/index.js";
 
   let isLoading = true;
   let isStart = $isStartStore;

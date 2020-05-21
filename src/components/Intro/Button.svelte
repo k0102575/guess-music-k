@@ -1,5 +1,5 @@
 <script>
-  import { isStartStore } from "../../module/stores.js";
+  import { isStartStore } from "@/module/stores.js";
   const startClick = () => {
     isStartStore.update(value => !value);
   };
