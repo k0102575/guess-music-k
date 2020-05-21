@@ -6,6 +6,7 @@
 <style>
   .Intro-box {
     padding: 50px;
+    height: 90%;
   }
 </style>
 

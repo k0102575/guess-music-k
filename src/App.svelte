@@ -1,26 +1,33 @@
 <script>
   import { onMount, onDestroy, beforeUpdate, afterUpdate, tick } from "svelte";
-  import { index, music } from "./module/stores.js";
+  import { indexStore, musicStore, isStartStore } from "./module/stores.js";
   import { IntroPage, Youtube, Loading, Header } from "./components/index.js";
 
   let player;
   let isLoading = true;
+  let isStart = $isStartStore;
   let url = "/question.json";
+
+  const getMusic = () => {
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        musicStore.update(value => data.music);
+      })
+      .then(() => {
+        setTimeout(() => {
+          isLoading = false;
+        }, 3000);
+      });
+  };
 
   onMount(() => {
     getMusic();
   });
 
-  function getMusic() {
-    fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        music.update(value => data.music);
-      })
-      .then(() => {
-        isLoading = false;
-      });
-  }
+  isStartStore.subscribe(value => {
+    isStart = value;
+  });
 </script>
 
 <style>
@@ -32,12 +39,15 @@
 <div class="container">
 
   <Header />
-  <IntroPage />
 
-  {#if isLoading}
-    <Loading />
+  {#if isStart}
+    {#if isLoading}
+      <Loading />
+    {:else}
+      <Youtube bind:this={player} />
+    {/if}
   {:else}
-    <Youtube bind:this={player} />
+    <IntroPage />
   {/if}
 
 </div>

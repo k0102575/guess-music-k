@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher, onMount } from "svelte";
-  import { index, music, answer } from "../module/stores.js";
+  import { indexStore, musicStore, answerStore } from "../module/stores.js";
   let player;
   let divId = "player_" + parseInt(Math.random() * 100000).toString();
   const dispatch = createEventDispatcher();
@@ -46,19 +46,19 @@
   }
 
   export function createPlayer() {
-    let videoId = $music[$index].videoId;
-    let answerValue = $music[$index].answer;
+    let videoId = $musicStore[$indexStore].videoId;
+    let answer = $musicStore[$indexStore].answer;
 
     player = new YT.Player(divId, {
-      height: "500",
-      width: "500",
+      height: "100",
+      width: "100",
       videoId: videoId,
       events: {
         onStateChange: onPlayerStateChange
       }
     });
 
-    answer.update(value => answer);
+    answerStore.update(value => answer);
   }
 
   export function destroyPlayer() {
