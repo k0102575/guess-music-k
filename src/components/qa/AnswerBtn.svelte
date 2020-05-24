@@ -5,7 +5,8 @@
     musicStore,
     countStore,
     divIdStore,
-    playerStore
+    playerStore,
+    isEndStore
   } from "@/module/stores.js";
   import {
     createPlayer,
@@ -19,6 +20,7 @@
     await indexUpdate(indexStore);
 
     if ($indexStore == $countStore) {
+      isEndStore.update(value => true);
       return;
     }
 

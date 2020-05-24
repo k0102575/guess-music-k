@@ -4,13 +4,21 @@
     indexStore,
     musicStore,
     isStartStore,
-    countStore
+    countStore,
+    isEndStore
   } from "@/module/stores.js";
-  import { IntroPage, QaPage, Loading, Header } from "@/components/index.js";
+  import {
+    IntroPage,
+    QaPage,
+    EndPage,
+    Loading,
+    Header
+  } from "@/components/index.js";
   import { Container } from "sveltestrap";
 
   let isLoading = true;
   let isStart = $isStartStore;
+  let isEnd = false;
   let url = "/question.json";
 
   const getMusic = () => {
@@ -35,6 +43,10 @@
   isStartStore.subscribe(value => {
     isStart = value;
   });
+
+  isEndStore.subscribe(value => {
+    isEnd = value;
+  });
 </script>
 
 <style>
@@ -48,6 +60,8 @@
   {#if isStart}
     {#if isLoading}
       <Loading />
+    {:else if isEnd}
+      <EndPage />
     {:else}
       <QaPage />
     {/if}
