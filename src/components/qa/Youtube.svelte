@@ -4,10 +4,14 @@
     indexStore,
     musicStore,
     answerStore,
-    playerStore
+    playerStore,
+    divIdStore
   } from "@/module/stores.js";
-  let divId = "player_" + parseInt(Math.random() * 100000).toString();
-  const dispatch = createEventDispatcher();
+  import { createPlayer, getVideoId } from "@/module/Module.svelte";
+
+  divIdStore.update(
+    value => "player_" + parseInt(Math.random() * 100000).toString()
+  );
 
   onMount(() => {
     let ytTagUrl = "https://www.youtube.com/iframe_api";
@@ -19,7 +23,9 @@
     }
     window.onYouTubeIframeAPIReady = function() {
       window.dispatchEvent(new Event("YouTubeIframeAPIReady"));
-      createPlayer();
+      playerStore.update(player => {
+        return createPlayer($divIdStore, getVideoId($musicStore, $indexStore));
+      });
     };
   });
 
@@ -29,46 +35,6 @@
       if (scripts[i].src == url) return true;
     }
     return false;
-  }
-
-  function onPlayerStateChange({ data }) {
-    if (data === 1) {
-      // TODO 난이도 시간초 처리
-      setTimeout(stopVideo, 2000);
-    }
-    dispatch("StateChange", data);
-  }
-
-  function createPlayer() {
-    let videoId = $musicStore[$indexStore].videoId;
-    let answer = $musicStore[$indexStore].answer;
-
-    playerStore.update(e => {
-      return new YT.Player(divId, {
-        height: "0",
-        width: "0",
-        videoId: videoId,
-        events: {
-          onStateChange: onPlayerStateChange
-        }
-      });
-    });
-
-    answerStore.update(value => answer);
-  }
-
-  function stopVideo() {
-    $playerStore.stopVideo();
-    $playerStore.clearVideo();
-  }
-
-  function playVideo() {
-    $playerStore.playVideo();
-    $playerStore.seekTo(0, true);
-  }
-
-  function destroyPlayer() {
-    $playerStore.destroy();
   }
 </script>
 
@@ -80,5 +46,5 @@
 </style>
 
 <div class="yt-component">
-  <div id={divId} />
+  <div id={$divIdStore} />
 </div>

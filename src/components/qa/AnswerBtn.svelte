@@ -1,8 +1,12 @@
 <script>
   import { Button } from "sveltestrap";
+  import { indexStore, countStore } from "@/module/stores.js";
 
   const onClick = () => {
-    console.log("Answer Btn");
+    indexStore.update(value => value + 1);
+
+    console.log($indexStore, $countStore);
+    if ($indexStore == $countStore) console.log("finish");
   };
 </script>
 

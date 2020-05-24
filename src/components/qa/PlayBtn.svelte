@@ -1,10 +1,10 @@
 <script>
   import { playerStore } from "@/module/stores.js";
+  import { playVideo } from "@/module/Module.svelte";
   import { Button } from "sveltestrap";
 
   const onClick = () => {
-    $playerStore.playVideo();
-    $playerStore.seekTo(0, true);
+    playVideo($playerStore);
   };
 </script>
 
