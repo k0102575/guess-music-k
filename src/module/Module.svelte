@@ -27,10 +27,20 @@
   }
 
   export function destroyPlayer(player) {
-    player.destroy();
+    return new Promise((resolve, reject) => {
+      player.destroy();
+      resolve();
+    });
   }
 
   export function getVideoId($musicStore, $indexStore) {
     return $musicStore[$indexStore].videoId;
+  }
+
+  export function indexUpdate(indexStore) {
+    return new Promise((resolve, reject) => {
+      indexStore.update(value => value + 1);
+      resolve();
+    });
   }
 </script>

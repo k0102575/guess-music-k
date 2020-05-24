@@ -1,12 +1,30 @@
 <script>
   import { Button } from "sveltestrap";
-  import { indexStore, countStore } from "@/module/stores.js";
+  import {
+    indexStore,
+    musicStore,
+    countStore,
+    divIdStore,
+    playerStore
+  } from "@/module/stores.js";
+  import {
+    createPlayer,
+    destroyPlayer,
+    getVideoId,
+    indexUpdate
+  } from "@/module/Module.svelte";
 
-  const onClick = () => {
-    indexStore.update(value => value + 1);
+  const onClick = async () => {
+    await destroyPlayer($playerStore);
+    await indexUpdate(indexStore);
 
-    console.log($indexStore, $countStore);
-    if ($indexStore == $countStore) console.log("finish");
+    if ($indexStore == $countStore) {
+      return;
+    }
+
+    playerStore.update(player => {
+      return createPlayer($divIdStore, getVideoId($musicStore, $indexStore));
+    });
   };
 </script>
 
