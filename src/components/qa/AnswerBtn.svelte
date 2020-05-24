@@ -12,10 +12,13 @@
     createPlayer,
     destroyPlayer,
     getVideoId,
-    indexUpdate
+    indexUpdate,
+    getAnwser
   } from "@/module/Module.svelte";
 
   const onClick = async () => {
+    console.log(getAnwser($musicStore, $indexStore));
+
     await destroyPlayer($playerStore);
     await indexUpdate(indexStore);
 

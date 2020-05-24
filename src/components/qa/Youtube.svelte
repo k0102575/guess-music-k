@@ -3,7 +3,6 @@
   import {
     indexStore,
     musicStore,
-    answerStore,
     playerStore,
     divIdStore
   } from "@/module/stores.js";

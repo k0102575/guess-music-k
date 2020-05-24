@@ -37,6 +37,10 @@
     return $musicStore[$indexStore].videoId;
   }
 
+  export function getAnwser($musicStore, $indexStore) {
+    return $musicStore[$indexStore].answer;
+  }
+
   export function indexUpdate(indexStore) {
     return new Promise((resolve, reject) => {
       indexStore.update(value => value + 1);
