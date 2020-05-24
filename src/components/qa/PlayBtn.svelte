@@ -1,9 +1,14 @@
 <script>
+  import { playerStore } from "@/module/stores.js";
 
+  const onClick = () => {
+    $playerStore.playVideo();
+    $playerStore.seekTo(0, true);
+  };
 </script>
 
 <style>
 
 </style>
 
-<button>재생</button>
+<button on:click={onClick}>재생</button>

@@ -1,7 +1,11 @@
 <script>
   import { createEventDispatcher, onMount } from "svelte";
-  import { indexStore, musicStore, answerStore } from "@/module/stores.js";
-  let player;
+  import {
+    indexStore,
+    musicStore,
+    answerStore,
+    playerStore
+  } from "@/module/stores.js";
   let divId = "player_" + parseInt(Math.random() * 100000).toString();
   const dispatch = createEventDispatcher();
 
@@ -35,34 +39,36 @@
     dispatch("StateChange", data);
   }
 
-  function stopVideo() {
-    player.stopVideo();
-    player.clearVideo();
-  }
-
-  export function playVideo() {
-    player.playVideo();
-    player.seekTo(0, true);
-  }
-
-  export function createPlayer() {
+  function createPlayer() {
     let videoId = $musicStore[$indexStore].videoId;
     let answer = $musicStore[$indexStore].answer;
 
-    player = new YT.Player(divId, {
-      height: "0",
-      width: "0",
-      videoId: videoId,
-      events: {
-        onStateChange: onPlayerStateChange
-      }
+    playerStore.update(e => {
+      return new YT.Player(divId, {
+        height: "0",
+        width: "0",
+        videoId: videoId,
+        events: {
+          onStateChange: onPlayerStateChange
+        }
+      });
     });
 
     answerStore.update(value => answer);
   }
 
-  export function destroyPlayer() {
-    player.destroy();
+  function stopVideo() {
+    $playerStore.stopVideo();
+    $playerStore.clearVideo();
+  }
+
+  function playVideo() {
+    $playerStore.playVideo();
+    $playerStore.seekTo(0, true);
+  }
+
+  function destroyPlayer() {
+    $playerStore.destroy();
   }
 </script>
 

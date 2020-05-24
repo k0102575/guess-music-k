@@ -19,7 +19,7 @@
 
 <div class="Qa-box">
   <Youtube bind:this={player} />
-  <PlayBtn />
+  <PlayBtn {player} />
   <SingerInput />
   <SongInput />
   <AnswerBtn />
