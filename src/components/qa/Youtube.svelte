@@ -34,7 +34,7 @@
   function onPlayerStateChange({ data }) {
     if (data === 1) {
       // TODO 난이도 시간초 처리
-      setTimeout(stopVideo, 1000);
+      setTimeout(stopVideo, 2000);
     }
     dispatch("StateChange", data);
   }
