@@ -1,5 +1,6 @@
 <script>
   import { playerStore } from "@/module/stores.js";
+  import { Button } from "sveltestrap";
 
   const onClick = () => {
     $playerStore.playVideo();
@@ -11,4 +12,6 @@
 
 </style>
 
-<button on:click={onClick}>재생</button>
+<Button on:click={onClick} color={'primary'} size="lg" class="playBtn">
+  재생
+</Button>

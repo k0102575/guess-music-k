@@ -1,17 +1,1 @@
-<div class="desciption">
-  설명
-  <br />
-  설명
-  <br />
-  설명
-  <br />
-  설명
-  <br />
-  설명
-  <br />
-  설명
-  <br />
-  설명
-  <br />
-  설명
-</div>
+<div class="desciption">노래를 듣고 노래를 맞춰라</div>

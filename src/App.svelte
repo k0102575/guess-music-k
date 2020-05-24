@@ -1,7 +1,8 @@
 <script>
-  import { onMount, onDestroy, beforeUpdate, afterUpdate, tick } from "svelte";
+  import { onMount } from "svelte";
   import { indexStore, musicStore, isStartStore } from "@/module/stores.js";
   import { IntroPage, QaPage, Loading, Header } from "@/components/index.js";
+  import { Container } from "sveltestrap";
 
   let isLoading = true;
   let isStart = $isStartStore;
@@ -30,12 +31,10 @@
 </script>
 
 <style>
-  .container {
-    height: 100%;
-  }
+
 </style>
 
-<div class="container">
+<Container class="container">
 
   <Header />
 
@@ -49,4 +48,4 @@
     <IntroPage />
   {/if}
 
-</div>
+</Container>

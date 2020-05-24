@@ -78,4 +78,17 @@ button:focus {
 body,
 .container {
   height: 100vh;
+  padding: 0px !important;
+}
+
+.startBtn,
+.answerBtn {
+  margin-top: auto;
+  padding: 20px !important;
+}
+
+.playBtn {
+  width: 50% !important;
+  margin-left: auto !important;
+  margin-bottom: 10% !important;
 }

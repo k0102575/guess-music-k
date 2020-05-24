@@ -1,9 +1,13 @@
 <script>
+  import { Button } from "sveltestrap";
 
+  const onClick = () => {
+    console.log("Answer Btn");
+  };
 </script>
 
 <style>
 
 </style>
 
-<button>정답</button>
+<Button on:click={onClick} color={'info'} block class="answerBtn">정답</Button>

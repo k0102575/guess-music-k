@@ -1,5 +1,5 @@
 <script>
-  let player;
+  import { FormGroup } from "sveltestrap";
 
   import {
     Youtube,
@@ -14,13 +14,19 @@
   .Qa-box {
     padding: 50px;
     height: 90%;
+    display: flex;
+    flex-direction: column;
   }
 </style>
 
 <div class="Qa-box">
-  <Youtube bind:this={player} />
-  <PlayBtn {player} />
-  <SingerInput />
-  <SongInput />
+  <Youtube />
+  <PlayBtn />
+  <FormGroup>
+    <SingerInput />
+  </FormGroup>
+  <FormGroup>
+    <SongInput />
+  </FormGroup>
   <AnswerBtn />
 </div>
