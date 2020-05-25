@@ -8,14 +8,16 @@
     countStore,
     divIdStore,
     playerStore,
-    isEndStore
+    isEndStore,
+    scoreStore
   } from "@/module/stores.js";
   import {
     createPlayer,
     destroyPlayer,
     getVideoId,
     indexUpdate,
-    getAnwser
+    getAnswer,
+    checkAnswer
   } from "@/module/Module.svelte";
 
   let singer = "";
@@ -25,21 +27,25 @@
   indexStore.subscribe(value => (index = value + 1));
 
   const handleAnswer = async event => {
-    if (singer == "" || song == "") {
-      notifier.danger("가수 및 노래를 입력해주세요", 1500);
-    }
-
-    //const answer = await getAnwser($musicStore, $indexStore);
-    //console.log(answer);
-    //await destroyPlayer($playerStore);
-    //await indexUpdate(indexStore);
-    //if ($indexStore == $countStore) {
-    //  isEndStore.update(value => true);
-    //  return;
+    //if (singer == "" || song == "") {
+    //  notifier.danger("가수 및 노래를 입력해주세요", 1500);
     //}
-    //playerStore.update(player => {
-    //  return createPlayer($divIdStore, getVideoId($musicStore, $indexStore));
-    //});
+
+    const answer = await getAnswer($musicStore, $indexStore);
+    await checkAnswer(answer, singer, song, scoreStore);
+
+    await destroyPlayer($playerStore);
+    await indexUpdate(indexStore);
+    if ($indexStore == $countStore) {
+      isEndStore.update(value => true);
+      return;
+    }
+    playerStore.update(player => {
+      return createPlayer($divIdStore, getVideoId($musicStore, $indexStore));
+    });
+
+    singer = "";
+    song = "";
   };
 </script>
 

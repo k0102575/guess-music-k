@@ -37,7 +37,7 @@
     return $musicStore[$indexStore].videoId;
   }
 
-  export function getAnwser($musicStore, $indexStore) {
+  export function getAnswer($musicStore, $indexStore) {
     return new Promise((resolve, reject) => {
       resolve($musicStore[$indexStore].answer);
     });
@@ -48,5 +48,22 @@
       indexStore.update(value => value + 1);
       resolve();
     });
+  }
+
+  export function checkAnswer(answer, singer, song, scoreStore) {
+    return new Promise((resolve, reject) => {
+      const [answerSinger, answerSong] = trimAndLowerCase(answer).split("-");
+      const inputAnswer = trimAndLowerCase(singer);
+      const inputSong = trimAndLowerCase(song);
+
+      if (answerSinger == inputAnswer) scoreStore.update(value => value + 1);
+      if (answerSong == inputSong) scoreStore.update(value => value + 1);
+
+      resolve();
+    });
+  }
+
+  function trimAndLowerCase(text) {
+    return text.replace(/ /gi, "").toLowerCase();
   }
 </script>

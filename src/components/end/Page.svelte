@@ -1,5 +1,5 @@
 <script>
-  import { musicStore } from "@/module/stores.js";
+  import { musicStore, scoreStore } from "@/module/stores.js";
 </script>
 
 <style>
@@ -12,7 +12,7 @@
 </style>
 
 <div class="End-box">
-  <p>총 0점 입니다.</p>
+  <p>총 {$scoreStore}점 입니다.</p>
 
   <ul>
     {#each $musicStore as music}

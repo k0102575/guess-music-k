@@ -7,3 +7,4 @@ export const isStartStore = writable(false);
 export const isEndStore = writable(false);
 export const playerStore = writable(null);
 export const divIdStore = writable("");
+export const scoreStore = writable(0);
