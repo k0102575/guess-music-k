@@ -1,19 +1,46 @@
 <script>
-  import { FormGroup } from "sveltestrap";
-
+  import { FormGroup, Input, Label } from "sveltestrap";
+  import { NotificationDisplay, notifier } from "@beyonk/svelte-notifications";
+  import { Youtube, PlayBtn, AnswerBtn } from "./index.js";
   import {
-    Youtube,
-    PlayBtn,
-    SingerInput,
-    SongInput,
-    AnswerBtn
-  } from "./index.js";
+    indexStore,
+    musicStore,
+    countStore,
+    divIdStore,
+    playerStore,
+    isEndStore
+  } from "@/module/stores.js";
+  import {
+    createPlayer,
+    destroyPlayer,
+    getVideoId,
+    indexUpdate,
+    getAnwser
+  } from "@/module/Module.svelte";
 
-  import { indexStore, countStore } from "@/module/stores.js";
-
+  let singer = "";
+  let song = "";
   let index = 1;
-
+  let n;
   indexStore.subscribe(value => (index = value + 1));
+
+  const handleAnswer = async event => {
+    if (singer == "" || song == "") {
+      notifier.danger("가수 및 노래를 입력해주세요", 1500);
+    }
+
+    //const answer = await getAnwser($musicStore, $indexStore);
+    //console.log(answer);
+    //await destroyPlayer($playerStore);
+    //await indexUpdate(indexStore);
+    //if ($indexStore == $countStore) {
+    //  isEndStore.update(value => true);
+    //  return;
+    //}
+    //playerStore.update(player => {
+    //  return createPlayer($divIdStore, getVideoId($musicStore, $indexStore));
+    //});
+  };
 </script>
 
 <style>
@@ -28,15 +55,23 @@
   }
 </style>
 
+<NotificationDisplay bind:this={n} />
+
 <div class="Qa-box">
   <Youtube />
   <p>{index} / {$countStore}</p>
   <PlayBtn />
   <FormGroup>
-    <SingerInput />
+    <Label for="singerInput">가수</Label>
+    <Input
+      type="text"
+      id="singerInput"
+      placeholder="가수"
+      bind:value={singer} />
   </FormGroup>
   <FormGroup>
-    <SongInput />
+    <Label for="songInput">노래</Label>
+    <Input type="text" id="songInput" placeholder="가수" bind:value={song} />
   </FormGroup>
-  <AnswerBtn />
+  <AnswerBtn on:answer={handleAnswer} />
 </div>

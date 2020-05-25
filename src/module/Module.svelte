@@ -38,7 +38,9 @@
   }
 
   export function getAnwser($musicStore, $indexStore) {
-    return $musicStore[$indexStore].answer;
+    return new Promise((resolve, reject) => {
+      resolve($musicStore[$indexStore].answer);
+    });
   }
 
   export function indexUpdate(indexStore) {
