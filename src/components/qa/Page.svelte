@@ -27,9 +27,9 @@
   indexStore.subscribe(value => (index = value + 1));
 
   const handleAnswer = async event => {
-    //if (singer == "" || song == "") {
-    //  notifier.danger("가수 및 노래를 입력해주세요", 1500);
-    //}
+    if (singer == "" || song == "") {
+      notifier.danger("가수 및 노래를 입력해주세요", 1500);
+    }
 
     const answer = await getAnswer($musicStore, $indexStore);
     await checkAnswer(answer, singer, song, scoreStore);
