@@ -17,8 +17,8 @@
 
   export function createPlayer(divId, videoId) {
     return new YT.Player(divId, {
-      height: "100",
-      width: "100",
+      height: "0",
+      width: "0",
       videoId: videoId,
       events: {
         onStateChange: onPlayerStateChange
